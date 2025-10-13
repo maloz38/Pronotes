@@ -1,28 +1,22 @@
-let pronote;
-try { pronote = await import('pronote-api'); } catch(e) { pronote = null; }
+// backend/pronoteClient.js (exemple avec une lib fictive pronote-api)
+import pronote from "pronote-api";
 
-async function login(url, username, password) {
-  if (!pronote) return null;
-  try { return await pronote.login(url, username, password); } catch { return null; }
-}
-
-async function getMarks(session) {
-  if (!session) return [];
-  try {
-    const rawMarks = await session.marks();
+export default {
+  async login(url, username, password) {
+    const session = await pronote.login(url, username, password);
+    return session;
+  },
+  async getMarks(session) {
+    const rawMarks = await session.marks(); // dépend de la lib exacte
     return rawMarks.map(m => ({
-      subject: m.subject || m.matiere || m.discipline,
-      value: m.value ?? m.note ?? m.valeur,
-      coef: m.coefficient ?? m.coef ?? 1,
-      scale: m.scale ?? 20,
-      teacher: m.teacher || m.prof || null,
-      date: m.date || null,
+      subject: m.subject,
+      value: m.value,
+      coef: m.coef ?? 1,
+      teacher: m.teacher,
+      date: m.date,
     }));
-  } catch { return []; }
-}
-
-async function logout(session) {
-  if (session && typeof session.logout === 'function') await session.logout();
-}
-
-export default { login, getMarks, logout };
+  },
+  async logout(session) {
+    if (session.logout) await session.logout();
+  }
+};
