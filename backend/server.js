@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import Pawnote from "pawnote";
+import { login } from "pawnote"; // <- import nommé
 
 const app = express();
 app.use(cors());
@@ -13,7 +13,7 @@ app.post("/api/notes", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const session = await Pawnote.login(PRONOTE_URL, username, password);
+    const session = await login(PRONOTE_URL, username, password);
     const marks = await session.marks();
     res.json(marks);
   } catch (error) {
