@@ -9,6 +9,6 @@
 "dependencies": {
   "express": "^4.18.2",
   "cors": "^2.8.5",
-  "pronote-api": "https://github.com/teoli/Pronote-API.git"
+  "pawnote": "^1.6.1"
 }
 }
