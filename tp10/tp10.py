@@ -56,8 +56,23 @@ def changerNotes(nom, nouvelle_note):
         print(f"{nom} n'est pas dans ce fichier")
 
 if __name__ == "__main__":
-    print("Ce fichier contient les fonctions du TP.")
-    print("Pour l'utiliser, importez-le ou exécutez les fonctions dans la console :")
-    print("  saisirNotes()")
-    print("  lireNotes()")
-    print("  changerNotes('Nom', note)")
+    while True:
+        print("\n--- Menu ---")
+        print("1. Saisir des notes")
+        print("2. Lire les notes et la moyenne")
+        print("3. Changer une note")
+        print("4. Quitter")
+        choix = input("Votre choix : ")
+
+        if choix == "1":
+            saisirNotes()
+        elif choix == "2":
+            lireNotes()
+        elif choix == "3":
+            nom = input("Nom de l'élève : ")
+            note = input("Nouvelle note : ")
+            changerNotes(nom, note)
+        elif choix == "4":
+            break
+        else:
+            print("Choix invalide.")
